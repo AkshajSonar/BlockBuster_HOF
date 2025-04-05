@@ -20,115 +20,81 @@ export default function LoginPage() {
     e.preventDefault();
     console.log(`Logging in as ${role}:`, formData);
 
-    if (!ethers.utils.isAddress(formData.wallet)) {
-      alert("Invalid Ethereum wallet address.");
-      return;
-    }
+    // if (!ethers.utils.isAddress(formData.wallet)) {
+    //   alert("Invalid Ethereum wallet address.");
+    //   return;
+    // }
 
     if (role === "issuer") navigate("/issuer");
     else if (role === "user") navigate("/user");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#e5e5e5] px-4">
-      <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md border border-[#14213d]">
-        <h2 className="text-3xl font-bold text-center mb-6 text-[#14213d]">Login</h2>
+    <div className="min-h-screen bg-gradient-to-br from-[#14213d] to-[#000000] flex items-center justify-center px-4 py-10 font-sans">
+      <div className="bg-white/90 backdrop-blur-md shadow-2xl rounded-3xl p-10 w-full max-w-md border border-[#fca311] transition-all">
+        <h2 className="text-4xl font-bold text-center text-[#14213d] mb-8">🚀 Welcome Back</h2>
 
-        <div className="flex justify-around mb-6">
-          <button
-            onClick={() => setRole("issuer")}
-            className={`px-4 py-2 rounded-lg font-semibold transition border ${
-              role === "issuer"
-                ? "bg-[#fca311] text-black border-[#fca311]"
-                : "bg-[#e5e5e5] text-[#14213d] border-[#14213d]"
-            }`}
-          >
-            Certificate Issuer
-          </button>
-          <button
-            onClick={() => setRole("user")}
-            className={`px-4 py-2 rounded-lg font-semibold transition border ${
-              role === "user"
-                ? "bg-[#fca311] text-black border-[#fca311]"
-                : "bg-[#e5e5e5] text-[#14213d] border-[#14213d]"
-            }`}
-          >
-            User
-          </button>
+        {/* Role Selector */}
+        <div className="flex justify-between mb-6">
+          {["issuer", "user"].map((r) => (
+            <button
+              key={r}
+              onClick={() => setRole(r)}
+              className={`w-[48%] py-2 rounded-xl font-semibold border transition-all duration-200 ${
+                role === r
+                  ? "bg-[#fca311] text-white border-[#fca311] shadow-md scale-105"
+                  : "bg-white text-[#14213d] border-[#14213d] hover:bg-[#fca311]/20"
+              }`}
+            >
+              {r === "issuer" ? "Certificate Issuer" : "User"}
+            </button>
+          ))}
         </div>
 
+        {/* Form */}
         {role && (
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5 animate-fade-in">
             <input
               type="text"
               name="name"
-              placeholder="Name"
-              className="w-full px-4 py-2 border border-[#14213d] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#fca311]"
+              placeholder="Full Name"
               value={formData.name}
               onChange={handleChange}
               required
+              className="w-full px-4 py-2 rounded-lg border border-[#14213d] focus:ring-2 focus:ring-[#fca311] focus:outline-none transition"
             />
             <input
               type="password"
               name="password"
               placeholder="Password"
-              className="w-full px-4 py-2 border border-[#14213d] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#fca311]"
               value={formData.password}
               onChange={handleChange}
               required
+              className="w-full px-4 py-2 rounded-lg border border-[#14213d] focus:ring-2 focus:ring-[#fca311] focus:outline-none transition"
             />
             <input
               type="text"
               name="wallet"
-              placeholder="Wallet Address"
-              className="w-full px-4 py-2 border border-[#14213d] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#fca311]"
+              placeholder="Ethereum Wallet Address"
               value={formData.wallet}
               onChange={handleChange}
               required
+              className="w-full px-4 py-2 rounded-lg border border-[#14213d] focus:ring-2 focus:ring-[#fca311] focus:outline-none transition"
             />
             <button
               type="submit"
-              className="w-full bg-[#000000] text-white py-2 rounded-lg hover:bg-[#14213d] transition font-semibold"
+              className="w-full bg-[#14213d] hover:bg-[#000000] text-white py-2 rounded-xl font-semibold tracking-wide transition-all"
             >
-              Login as {role === "issuer" ? "Issuer" : "User"}
+              🔐 Login as {role === "issuer" ? "Issuer" : "User"}
             </button>
           </form>
         )}
 
-        <div className="mt-6 space-y-2 text-sm text-center text-[#14213d]">
-          <p>
-            New here?{' '}
-            <span
-              className="text-[#fca311] font-semibold cursor-pointer hover:underline"
-              onClick={() => navigate('/register')}
-            >
-              Register Now
-            </span>
-          </p>
-          <p>
-            Forgot Password?{' '}
-            <span
-              className="text-[#fca311] font-semibold cursor-pointer hover:underline"
-              onClick={() => navigate('/forgot-password')}
-            >
-              Recover Account
-            </span>
-          </p>
-          <p>
-            or{' '}
-            <span
-              className="text-[#fca311] font-semibold cursor-pointer hover:underline"
-              onClick={() => navigate('/')}
-            >
-              Back to Home
-            </span>
-          </p>
-          <p>
-            <span className="text-gray-500">
-              Test Wallet Address:{' '}
-              <span className="text-[#14213d] font-mono">0x0000000000000000000000000000000000000000</span>
-            </span>
-          </p>
+        {/* Footer Links */}
+        <div className="mt-6 text-center text-sm text-[#14213d] space-y-2">
+     
+        
+        
         </div>
       </div>
     </div>
